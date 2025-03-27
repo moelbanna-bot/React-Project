@@ -1,3 +1,4 @@
+
 :root {
   --bs-primary: #ffe353 !important;
   --font-xsmall: 14px !important;
@@ -22,7 +23,6 @@ body {
 .text-medium {
   font-size: var(--font-medium) !important;
 }
-
 .text-large {
   font-size: var(--font-large) !important;
 }
