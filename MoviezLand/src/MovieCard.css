@@ -1,0 +1,52 @@
+.movie-card {
+    width: 180px;
+    border: none;
+    position: relative;
+    background: none;
+  }
+  
+  .image-container {
+    position: relative;
+  }
+  
+  .movie-image {
+    border-radius: 10px;
+  }
+  
+  .rating-circle {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    background: black;
+    color: white;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  .movie-title {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .movie-date {
+    color: gray;
+    font-size: 12px;
+  }
+  
+  .wishlist-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+  
+  .heart-icon {
+    color: gold;
+    font-size: 18px;
+  }
+  
