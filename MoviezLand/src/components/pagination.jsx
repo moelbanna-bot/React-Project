@@ -6,6 +6,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToWishlist, removeFromWishlist } from "../store/slices/wishlist";
 import { Loading } from "./loading";
+import FavHart from "./components/favHart.jsx"; 
+import PersantageCycle from "./components/persantageCycle.jsx"; 
 
 const Pgination = ()=>{
     const dispatch = useDispatch();

@@ -1,0 +1,4 @@
+react-circular-progressbar
+@fortawesome/react-fontawesome 
+@fortawesome/free-solid-svg-icons
+@fortawesome/free-regular-svg-icons
