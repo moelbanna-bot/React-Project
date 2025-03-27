@@ -1,0 +1,31 @@
+:root {
+  --bs-primary: #ffe353 !important;
+  --font-xsmall: 14px !important;
+  --font-small: 15px !important;
+  --font-medium: 16px !important;
+  --font-large: 24px !important;
+  --font-xlarge: 32px !important;
+}
+body {
+  font-family: "Inter", sans-serif;
+}
+.bg-yellow {
+  background-color: var(--bs-primary);
+}
+.text-xsmall {
+  font-size: var(--font-xsmall) !important;
+}
+.text-small {
+  font-size: var(--font-small) !important;
+}
+
+.text-medium {
+  font-size: var(--font-medium) !important;
+}
+.text-large {
+  font-size: var(--font-large) !important;
+}
+.text-xlarge {
+  font-size: var(--font-xlarge) !important;
+}
+
