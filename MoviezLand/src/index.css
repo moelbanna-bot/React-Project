@@ -1,4 +1,3 @@
-
 :root {
   --bs-primary: #ffe353 !important;
   --font-xsmall: 14px !important;
@@ -29,3 +28,4 @@ body {
 .text-xlarge {
   font-size: var(--font-xlarge) !important;
 }
+
