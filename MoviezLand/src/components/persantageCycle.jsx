@@ -4,7 +4,7 @@ import "react-circular-progressbar/dist/styles.css";
 
 const PersantageCycle = ({ percentage = 40 }) => {
   const textSize = 35;
-  const wholeSize = 150;
+  const wholeSize = 50;
   let Progress_color = "21d07a";
 
   if (percentage < 25) {

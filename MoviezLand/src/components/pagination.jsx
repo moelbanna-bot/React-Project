@@ -6,8 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToWishlist, removeFromWishlist } from "../store/slices/wishlist";
 import { Loading } from "./loading";
-import FavHart from "./components/favHart.jsx"; 
-import PersantageCycle from "./components/persantageCycle.jsx"; 
+import PersantageCycle from "../components/persantageCycle.jsx"; 
 
 const Pgination = ()=>{
     const dispatch = useDispatch();
@@ -16,7 +15,6 @@ const Pgination = ()=>{
     const [data, setData] = useState([]); 
     const [limit, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
-    const [totalPages,setTotalPages] = useState(1);
     const API_KEY = "e2edbfd087d07f1651e7d9622dc3b0c6";
    
   useEffect(() => {
@@ -26,7 +24,6 @@ const Pgination = ()=>{
           `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&page=${limit}`
         )
         setData(response.data.results);
-        setTotalPages(response.data.total_pages)
         console.log(response)
         setLoading(false)
       } catch (error) {
@@ -50,15 +47,24 @@ const Pgination = ()=>{
         {loading && <Loading />}
         <div className="row">
             {data.map((movie) => (
-            <div key={movie.id} className="col-lg-2 col-md-3 col-sm-6 p-2" style={{maxHeight:"500px"}}>
+            <div key={movie.id} className="col-xl-2 col-md-4 col-sm-6 p-2 mb-4" style={{maxHeight:"500px"}}>
                 <div className="card h-100 border-0">
-                  <img src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} className="card-img-top rounded-4 img-fluid shadow" style={{ height: "400px", objectFit: "cover" }}  alt={movie.title}/>
-                  <div className="d-flex justify-content-between mt-4 p-2">
-                      <div>
-                        <h5 className="card-title">{movie.title}</h5>
-                        <p className="card-text"> <strong>Release Date:</strong> {movie.release_date} </p>
+                  <div className="position-relative">
+                    <img src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} className="card-img-top rounded-4 img-fluid shadow" style={{ height: "400px", objectFit: "cover" }}  alt={movie.title}/>
+                    <div className="position-absolute" style={{bottom: "-15px", left: "10px"}}>
+                    <PersantageCycle  percentage={Math.floor(movie.popularity)}/>
+                    </div>
+                  </div>
+                  <div className="row mt-3 p-2">
+                      <div className="text-start col-10">
+                        <h5 className="card-title fw-bold">{movie.title}</h5>
+                        <p className="card-text"> {new Date(movie.release_date).toLocaleDateString("en-US",{
+                          month:"short",
+                          day:"2-digit",
+                          year:"numeric"
+                        })} </p>
                       </div>
-                      <span onClick={() => toggleWishlist(movie)} style={{ cursor: "pointer", fontSize: "1.5rem", color: wishlist.some((m) => m.id === movie.id) ? "#f4d03f" : "gray" }} className="align-self-end">
+                      <span onClick={() => toggleWishlist(movie)} style={{ cursor: "pointer", fontSize: "1.5rem", color: wishlist.some((m) => m.id === movie.id) ? "#f4d03f" : "gray" }} className="col-2">
                           {wishlist.some((m) => m.id === movie.id) ? <FaHeart /> : <FaRegHeart />}
                       </span>
                   </div>
@@ -71,7 +77,7 @@ const Pgination = ()=>{
             <button className="btn btn-sm fw-bold " onClick={() => setPage((prev) => Math.max(prev - 1, 1))} disabled={limit === 1} style={{color:"white" , background:"#2c3e50"}}>
              <ChevronLeft size={50} /> Previous
             </button>
-            <span className="fw-bold" style={{letterSpacing:"3px"}}> Page Number : {limit} / From : {totalPages} </span>
+            <span className="fw-bold" style={{letterSpacing:"3px"}}> Page Number : {limit} </span>
             <button className="btn btn-sm fw-bold" onClick={() => setPage((prev) => prev + 1)} style={{color:"white" , background:"#2c3e50"}}>
             Next  <ChevronRight size={50} />
             </button>
