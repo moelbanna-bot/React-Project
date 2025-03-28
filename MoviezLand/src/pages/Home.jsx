@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchPaginatedMovies } from "../store/movies/moviesSlice";
+import { fetchPaginatedMovies } from "../store/slices/moviesSlice";
 import { Container, Row, Col, Card, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Pagination from "../components/Pagination";

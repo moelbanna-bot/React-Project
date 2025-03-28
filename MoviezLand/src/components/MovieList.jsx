@@ -1,11 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchPaginatedMovies, setQuery, resetPagination } from "./moviesSlice";
+import {
+  fetchPaginatedMovies,
+  setQuery,
+  resetPagination,
+} from "../store/slices/moviesSlice";
 import { useSearchParams, Link } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import Pagination from "../../components/Pagination";
-import PersantageCycle from "../../components/persantageCycle";
-import FavHart from "../../components/favHart";
+import Pagination from "./Pagination";
+import PersantageCycle from "./persantageCycle";
+import FavHart from "./favHart";
 
 const MovieList = () => {
   const dispatch = useDispatch();

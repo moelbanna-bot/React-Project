@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchMovieDetails } from "./moviesSlice";
+import { fetchMovieDetails } from "../store/slices/moviesSlice";
 import { Container, Row, Col, Image, Badge } from "react-bootstrap";
-import PersantageCycle from "../../components/persantageCycle";
-import FavHart from "../../components/favHart";
+import PersantageCycle from "./persantageCycle";
+import FavHart from "./favHart";
 
 const MovieDetails = () => {
   const { id } = useParams();

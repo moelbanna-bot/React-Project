@@ -5,7 +5,7 @@ import "./SearchBar.css";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import { resetPagination } from "../../store/movies/moviesSlice";
+import { resetPagination } from "../../store/slices/moviesSlice";
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");
