@@ -9,6 +9,11 @@ import Navbar from "./components/Navbar/Navbar";
 import SearchBar from "./components/SearchBar/SearchBar";
 import FavHart from "./components/favHart.jsx";
 import PersantageCycle from "./components/persantageCycle.jsx";
+import FavHart from "./components/favHart.jsx"; 
+import PersantageCycle from "./components/persantageCycle.jsx"; 
+import MovieDetails from "./store/movies/MovieDetails";
+import MovieList from "./store/movies/MovieList.jsx";
+
 
 const App = () => (
   <MovieProvider>
@@ -18,6 +23,23 @@ const App = () => (
     <PersantageCycle percentage={40} />
     <SearchedMovieList />
   </MovieProvider>
+  // const [count, setCount] = useState(0);
+  // <MovieProvider>
+  //     <Navbar />
+  //     <SearchBar />
+  //     <FavHart isfav={false}/>
+  //     <PersantageCycle percentage={40}/>
+  //     <SearchedMovieList />
+  // </MovieProvider>
+  <>
+    <Navbar />
+    <SearchBar />
+    <MovieList />
+    {/* <MovieDetails movieId={11}/> */}
+  </>
+
 );
 
 export default App;
+
+
