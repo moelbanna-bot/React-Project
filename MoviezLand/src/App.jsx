@@ -1,26 +1,33 @@
-import React from "react";
-import { BrowserRouter } from "react-router-dom";
-import CardDetails from "./components/CardDetails";
-import LanguageDisplay from "./components/LanguageDisplay";
-import LangChoice from "./components/LangChoice"; 
-import { useTranslation } from "./context/LangContext";
+
+import React from 'react';
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Navbar from "./components/Navbar/Navbar";
+import SearchBar from "./components/SearchBar/SearchBar";
+import FavHart from "./components/favHart.jsx"; 
+import PersantageCycle from "./components/persantageCycle.jsx"; 
+import MovieDetails from "./store/movies/MovieDetails";
+import MovieList from "./store/movies/MovieList.jsx";
 
-const App = () => {
-  const { lang, text, status, updateLanguage } = useTranslation("en");
 
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <CardDetails />
-        <div style={{ fontFamily: "Arial, sans-serif", padding: "2rem", textAlign: "center" }}>
-          <h2>Language Selector</h2>
-          <LangChoice currentLang={lang} onChange={updateLanguage} />
-          <LanguageDisplay text={text} status={status} lang={lang} />
-        </div>
-      </BrowserRouter>
-    </div>
-  );
-};
+const App = () => (
+  // const [count, setCount] = useState(0);
+  // <MovieProvider>
+  //     <Navbar />
+  //     <SearchBar />
+  //     <FavHart isfav={false}/>
+  //     <PersantageCycle percentage={40}/>
+  //     <SearchedMovieList />
+  // </MovieProvider>
+  <>
+    <Navbar />
+    <SearchBar />
+    <MovieList />
+    {/* <MovieDetails movieId={11}/> */}
+  </>
+
+);
 
 export default App;
+
+

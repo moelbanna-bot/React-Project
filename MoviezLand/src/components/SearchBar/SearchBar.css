@@ -1,0 +1,23 @@
+#input-search {
+  border-radius: 12px !important;
+  font-size: var(--font-xsmall) !important;
+}
+#input-search:focus {
+  border-color: var(--bs-primary) !important;
+  box-shadow: 0 0 0 0.25rem rgba(255, 227, 83, 0.25) !important;
+}
+
+#button-search {
+  background-color: var(--bs-primary) !important;
+  border: none;
+  color: #000;
+  font-weight: 400;
+  font-size: var(--font-xsmall) !important;
+  border-radius: 12px !important;
+  padding: 12.5px 39px !important;
+  transition: all 0.3s ease;
+}
+#button-search:hover {
+  background-color: #ffe27a !important;
+  color: #000 !important;
+}
