@@ -1,48 +1,55 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchPaginatedMovies, setQuery, resetPagination } from "./moviesSlice";
-import { useSearchParams, Link } from "react-router-dom";
-import { Container, Row, Col, Card } from "react-bootstrap";
-import Pagination from "../../components/Pagination";
-import PersantageCycle from "../../components/persantageCycle";
-import FavHart from "../../components/favHart";
+import { fetchPaginatedMovies } from "../store/movies/moviesSlice";
+import { Container, Row, Col, Card, Spinner } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import Pagination from "../components/Pagination";
+import PersantageCycle from "../components/persantageCycle";
+import FavHart from "../components/favHart";
+import SearchBar from "../components/SearchBar/SearchBar";
+import "./Home.css";
 
-const MovieList = () => {
+const Home = () => {
   const dispatch = useDispatch();
   const { movies, currentPage, totalPages, loading, error } = useSelector(
     (state) => state.movies
   );
-  const [searchParams] = useSearchParams();
-  const searchQuery = searchParams.get("q") || "";
-  const prevSearchQueryRef = useRef("");
+  const [defaultQuery] = useState("popular");
 
   useEffect(() => {
-    if (searchQuery) {
-      // If the search query has changed, reset pagination
-      if (prevSearchQueryRef.current !== searchQuery) {
-        dispatch(resetPagination());
-        prevSearchQueryRef.current = searchQuery;
-      }
-
-      dispatch(setQuery(searchQuery));
-      dispatch(fetchPaginatedMovies({ query: searchQuery, page: currentPage }));
-    }
-  }, [dispatch, searchQuery, currentPage]);
+    dispatch(fetchPaginatedMovies({ query: defaultQuery, page: currentPage }));
+  }, [dispatch, defaultQuery, currentPage]);
 
   const handlePageChange = (newPage) => {
-    dispatch(fetchPaginatedMovies({ query: searchQuery, page: newPage }));
+    dispatch(fetchPaginatedMovies({ query: defaultQuery, page: newPage }));
   };
 
-  if (loading) return <div className="text-center my-5">Loading...</div>;
+  if (loading)
+    return (
+      <div className="d-flex justify-content-center align-items-center my-5">
+        <Spinner
+          animation="border"
+          role="status"
+          variant="primary"
+          style={{ width: "3rem", height: "3rem" }}
+        >
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
+    );
+
   if (error) return <div className="text-center my-5 text-danger">{error}</div>;
 
   return (
     <Container className="my-4">
-      <h2 className="mb-4">
-        {movies.length > 0
-          ? `Search Results for "${searchQuery}"`
-          : `No results found for "${searchQuery}"`}
-      </h2>
+      <div className="search-component mb-5">
+        <h2 className="mt-2 mb-4">Welcome to MoviezLand</h2>
+        <p className="mt-2 mb-4">
+          Millions of movies, TV shows and people to discover. Explore now.
+        </p>
+        <SearchBar />
+      </div>
+      <h1 className="mb-4">Now Playing</h1>
       <Row className="g-4">
         {movies.map((movie) => (
           <Col key={movie.id} xs={12} sm={6} md={4} lg={3}>
@@ -76,28 +83,25 @@ const MovieList = () => {
                 )}
                 <Card.Body>
                   <Card.Title className="text-dark">{movie.title}</Card.Title>
-                  {movie.release_date && (
-                    <Card.Text className="text-muted">
-                      {new Date(movie.release_date).toLocaleDateString()}
-                    </Card.Text>
-                  )}
+                  <Card.Text className="text-muted">
+                    {movie.release_date &&
+                      new Date(movie.release_date).toLocaleDateString()}
+                  </Card.Text>
                 </Card.Body>
               </Link>
             </Card>
           </Col>
         ))}
       </Row>
-      {movies.length > 0 && (
-        <div className="d-flex justify-content-center mt-4">
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
-        </div>
-      )}
+      <div className="d-flex justify-content-center mt-4">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </Container>
   );
 };
 
-export default MovieList;
+export default Home;

@@ -4,14 +4,18 @@ import InputGroup from "react-bootstrap/InputGroup";
 import "./SearchBar.css";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { resetPagination } from "../../store/movies/moviesSlice";
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (query.trim()) {
+      dispatch(resetPagination());
       navigate(`/search?q=${encodeURIComponent(query.trim())}`);
       setQuery("");
     }

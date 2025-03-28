@@ -6,4 +6,10 @@
 }
 .title {
   font-weight: 700;
+  text-decoration: none;
+  color: #000;
+}
+.title:hover {
+  color: #000;
+  text-decoration: none;
 }

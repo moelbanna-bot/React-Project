@@ -1,45 +1,21 @@
 import React from "react";
-import { MovieProvider } from "./context/MovieContext";
-import Home from "./components/home";
-import SearchedMovieList from "./components/search";
-import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./components/Navbar/Navbar";
-import SearchBar from "./components/SearchBar/SearchBar";
-import FavHart from "./components/favHart.jsx";
-import PersantageCycle from "./components/persantageCycle.jsx";
-import FavHart from "./components/favHart.jsx"; 
-import PersantageCycle from "./components/persantageCycle.jsx"; 
 import MovieDetails from "./store/movies/MovieDetails";
 import MovieList from "./store/movies/MovieList.jsx";
-
+import Home from "./pages/Home";
 
 const App = () => (
-  <MovieProvider>
+  <Router>
     <Navbar />
-    <SearchBar />
-    <FavHart isfav={false} />
-    <PersantageCycle percentage={40} />
-    <SearchedMovieList />
-  </MovieProvider>
-  // const [count, setCount] = useState(0);
-  // <MovieProvider>
-  //     <Navbar />
-  //     <SearchBar />
-  //     <FavHart isfav={false}/>
-  //     <PersantageCycle percentage={40}/>
-  //     <SearchedMovieList />
-  // </MovieProvider>
-  <>
-    <Navbar />
-    <SearchBar />
-    <MovieList />
-    {/* <MovieDetails movieId={11}/> */}
-  </>
-
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/search" element={<MovieList />} />
+      <Route path="/movie/:id" element={<MovieDetails />} />
+    </Routes>
+  </Router>
 );
 
 export default App;
-
-
