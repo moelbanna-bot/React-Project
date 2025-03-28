@@ -123,3 +123,11 @@
     color: black;
     border: 1px solid gold;
     border-radius: 20px ;}
+
+  .description{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+    white-space: normal;
+    word-break: break-word;
+  }

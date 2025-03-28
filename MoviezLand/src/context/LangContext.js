@@ -1,12 +1,21 @@
 import { useState, useCallback } from "react";
 
 export const Lang = {
-  en: { label: "English", dir: "ltr", defaultText: "Welcome" },
-  ar: { label: "العربية", dir: "rtl", defaultText: "مرحباً" },
-  fr: { label: "Français", dir: "ltr", defaultText: "Bienvenue" },
-  es: { label: "Español", dir: "ltr", defaultText: "Bienvenido" },
+  en: {
+    label: "English",
+    dir: "ltr",
+    watchlist: "Watchlist",
+    noMovies: "No Movies in watchlist",
+    backToHome: "Back to home",
+  },
+  ar: {
+    label: "Arabic",
+    dir: "rtl",
+    watchlist: "قائمة المشاهدة",
+    noMovies: "لا توجد أفلام في قائمة المشاهدة",
+    backToHome: "العودة إلى الصفحة الرئيسية",
+  },
 };
-
 export const useTranslation = (initialLang = "en") => {
   const validInitialLang = Lang[initialLang] ? initialLang : "en";
   const [lang, setLang] = useState(validInitialLang);
