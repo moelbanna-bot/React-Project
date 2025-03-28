@@ -1,90 +1,73 @@
-import React from "react";
-import { useState,useEffect } from "react";
-import axios from "axios";
-import { FaHeart, FaRegHeart } from "react-icons/fa"; 
+import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToWishlist, removeFromWishlist } from "../store/slices/wishlist";
 import { Loading } from "./loading";
-import PersantageCycle from "../components/persantageCycle.jsx"; 
+import MovieCard from "./movieCard";
+import { fetchPaginatedMovies , fetchAllMoviesByPage } from "../store/slices/moviesSlice"; 
 
-const Pgination = ()=>{
-    const dispatch = useDispatch();
-    const wishlist = useSelector((state) => state.wishlist.wishlist);
-    console.log(wishlist)
-    const [data, setData] = useState([]); 
-    const [limit, setPage] = useState(1);
-    const [loading, setLoading] = useState(true);
-    const API_KEY = "e2edbfd087d07f1651e7d9622dc3b0c6";
-   
+
+const Pgination = () => {
+
+  const dispatch = useDispatch();
+  const { movies, totalPages, currentPage, loading, error } = useSelector((state) => state.movies);
+  const wishlist = useSelector((state) => state.wishlist.wishlist);
+  
+  const query = "";
   useEffect(() => {
-    const fetchData = async (limit) => {
-      try {
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&page=${limit}`
-        )
-        setData(response.data.results);
-        console.log(response)
-        setLoading(false)
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData(limit);
-  }, [limit]);
+    dispatch(fetchAllMoviesByPage(currentPage)).then((response) => {
+      console.log("Fetched movies response:", response);
+      console.log("Type of page:", typeof page);
+      console.log(currentPage);
+    });
+  }, [dispatch, currentPage, query]);
 
   const toggleWishlist = (movie) => {
-        if (wishlist.some((item) => item.id === movie.id)) {
-            dispatch(removeFromWishlist(movie));
-        } else {
-            dispatch(addToWishlist(movie));
-        }
-    };
-    return(
+    if (wishlist.some((item) => item.id === movie.id)) {
+      dispatch(removeFromWishlist(movie));
+    } else {
+      dispatch(addToWishlist(movie));
+    }
+  };
+  return (
     <div className="text-center">
-        <h2 className="fw-bold" style={{color:"#2c3e50 "}}> Movies List </h2>
-        <hr />
-        {loading && <Loading />}
-        <div className="row">
-            {data.map((movie) => (
-            <div key={movie.id} className="col-xl-2 col-md-4 col-sm-6 p-2 mb-4" style={{maxHeight:"500px"}}>
-                <div className="card h-100 border-0">
-                  <div className="position-relative">
-                    <img src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} className="card-img-top rounded-4 img-fluid shadow" style={{ height: "400px", objectFit: "cover" }}  alt={movie.title}/>
-                    <div className="position-absolute" style={{bottom: "-15px", left: "10px"}}>
-                    <PersantageCycle  percentage={Math.floor(movie.popularity)}/>
-                    </div>
-                  </div>
-                  <div className="row mt-3 p-2">
-                      <div className="text-start col-10">
-                        <h5 className="card-title fw-bold">{movie.title}</h5>
-                        <p className="card-text"> {new Date(movie.release_date).toLocaleDateString("en-US",{
-                          month:"short",
-                          day:"2-digit",
-                          year:"numeric"
-                        })} </p>
-                      </div>
-                      <span onClick={() => toggleWishlist(movie)} style={{ cursor: "pointer", fontSize: "1.5rem", color: wishlist.some((m) => m.id === movie.id) ? "#f4d03f" : "gray" }} className="col-2">
-                          {wishlist.some((m) => m.id === movie.id) ? <FaHeart /> : <FaRegHeart />}
-                      </span>
-                  </div>
-                </div>
-            </div>
-            ))}
-        </div>
-        <hr />
-        <div className="text-center  d-flex justify-content-around align-items-center">
-            <button className="btn btn-sm fw-bold " onClick={() => setPage((prev) => Math.max(prev - 1, 1))} disabled={limit === 1} style={{color:"white" , background:"#2c3e50"}}>
-             <ChevronLeft size={50} /> Previous
-            </button>
-            <span className="fw-bold" style={{letterSpacing:"3px"}}> Page Number : {limit} </span>
-            <button className="btn btn-sm fw-bold" onClick={() => setPage((prev) => prev + 1)} style={{color:"white" , background:"#2c3e50"}}>
-            Next  <ChevronRight size={50} />
-            </button>
+      <h2 className="fw-bold" style={{ color: "#2c3e50" }}>Movies List</h2>
+      <hr />
+      {loading && <Loading />}
+      {error && <p className="text-danger">{error}</p>}
+      <div className="row">
+        {movies.map((movie) => (
+          <MovieCard
+            key={movie.id}
+            movie={movie}
+            toggleWishlist={toggleWishlist}
+            isInWishlist={wishlist.some((m) => m.id === movie.id)}
+          />
+        ))}
+      </div>
+      <hr />
+      <div className="text-center d-flex justify-content-around align-items-center">
+        <button
+          className="btn btn-sm fw-bold"
+          onClick={() => dispatch(fetchPaginatedMovies({ query, page: Math.max(currentPage - 1, 1) }))}
+          disabled={currentPage === 1}
+          style={{ color: "white", background: "#2c3e50" }}
+        >
+          <ChevronLeft size={50} /> Previous
+        </button>
+        
+        <span className="fw-bold" style={{ letterSpacing: "3px" }}>Page Number: {currentPage}</span>
+        
+        <button
+          className="btn btn-sm fw-bold"
+          onClick={() => dispatch(fetchPaginatedMovies({ query, page: currentPage + 1 }))}
+          style={{ color: "white", background: "#2c3e50" }}
+        >
+          Next <ChevronRight size={50} />
+        </button>
       </div>
     </div>
-
-    );
+  );
 };
 
-export default Pgination ;
+export default Pgination;

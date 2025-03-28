@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './pages/home'
+import MovieDetails from './pages/MovieDetails'
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/movie/:id' element={<MovieDetails />} />
         </Routes>
       </BrowserRouter>
     </>
@@ -19,3 +21,5 @@ function App() {
 }
 
 export default App;
+
+
