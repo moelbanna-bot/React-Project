@@ -31,6 +31,19 @@ export const fetchMovieDetails = createAsyncThunk(
     }
 );
 
+export const fetchMovieRecommendations = createAsyncThunk(
+    'movies/fetchMovieRecommendations',
+    async(id,{rejectWithValue})=>{
+        try{
+            const response = await api.get(`/movie/${id}/recommendations`);
+            return response.data.results;
+        }catch(err){
+            return rejectWithValue('Failed to fetch movie recommendations');
+        }
+
+    }
+);
+
 // Slice Definition
 const moviesSlice = createSlice({
     name: 'movies',
@@ -39,6 +52,7 @@ const moviesSlice = createSlice({
         totalPages: 0,
         currentPage: 1,
         selectedMovie: null,
+        recommendations: [],
         query: '',
         error: null,
         loading: false,
@@ -65,6 +79,15 @@ const moviesSlice = createSlice({
             })
             .addCase(fetchMovieDetails.fulfilled, (state, action) => {
                 state.selectedMovie = action.payload;
+            })
+            .addCase(fetchMovieDetails.rejected, (state, action) => {
+                state.error = action.payload;
+            })
+            .addCase(fetchMovieRecommendations.fulfilled, (state, action) => {
+                state.recommendations = action.payload;
+            })
+            .addCase(fetchMovieRecommendations.rejected, (state, action) => {
+                state.error = action.payload;
             });
     },
 });
