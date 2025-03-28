@@ -1,12 +1,15 @@
 import Dropdown from "react-bootstrap/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 export default function Navbar() {
   return (
     <nav className="d-flex justify-content-between align-items-center px-3 py-1 bg-yellow">
-      <a className="nav-link title">MoviezLand</a>
+      <Link to="/" className="nav-link title">
+        MoviezLand
+      </Link>
       <div className="d-flex align-items-center justify-content-center gap-3">
         <Dropdown>
           <Dropdown.Toggle className="text-small" id="dropdown-basic">
