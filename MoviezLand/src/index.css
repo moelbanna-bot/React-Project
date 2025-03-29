@@ -1,4 +1,3 @@
-
 :root {
   --bs-primary: #ffe353 !important;
   --font-xsmall: 14px !important;
@@ -38,12 +37,20 @@ body {
   button {
     background-color: #f9f9f9;
   }
-} */
-*{
+}
+*/ * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 .text-xlarge {
   font-size: var(--font-xlarge) !important;
+}
+
+.back-home {
+  cursor: pointer !important;
+  color: 000;
+}
+.back-home:hover {
+  background-color: #ffe27a !important;
 }

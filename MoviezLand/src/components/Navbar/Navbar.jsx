@@ -9,7 +9,7 @@ export default function Navbar() {
   return (
     <div className="container-fluid p-0">
       <nav className="d-flex justify-content-between align-items-center px-3 py-1 bg-yellow">
-        <Link to="/" className="nav-link title">
+        <Link to="/" className="nav-link title fw-bold">
           MoviezLand
         </Link>
         <div className="d-flex align-items-center justify-content-center gap-3">
@@ -28,7 +28,7 @@ export default function Navbar() {
             <FontAwesomeIcon icon={faHeart} className="fa-xl" />
             <Link
               to="/watchlist"
-              className="align-self-center nav-link text-small"
+              className="align-self-center nav-link text-small fw-bold"
             >
               Watchlist
             </Link>
