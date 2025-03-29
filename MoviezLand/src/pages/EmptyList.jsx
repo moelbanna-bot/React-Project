@@ -8,11 +8,17 @@ const EmptyList = ({ showHeading = true }) => {
 
   return (
     <div className="empty-list-container">
-      <div className="mb-4">
+      <div className="mb-4 text-center">
         <img
           src="/heart_slash.svg"
           alt="Empty watchlist"
           className="img-fluid"
+          style={{
+            opacity: 0.7,
+            maxWidth: "150px",
+            display: "block",
+            margin: "0 auto 15px",
+          }}
         />
       </div>
       <h4 className="mb-4 text-secondary">{t("emptyWatchlist")}</h4>
