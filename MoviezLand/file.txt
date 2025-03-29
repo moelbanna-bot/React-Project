@@ -1,0 +1,2 @@
+ <FavHart isfav={false}/>
+<PersantageCycle percentage={40}/>
