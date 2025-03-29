@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchPaginatedMovies ,fetchAllMoviesByPage } from "../store/slices/moviesSlice";
-import { Container, Row, Col, Card, Spinner } from "react-bootstrap";
+import { fetchPaginatedMovies  } from "../store/slices/moviesSlice";
 import Pagination from "../components/Pagination";
 import SearchBar from "../components/SearchBar/SearchBar";
 import { Loading } from "../components/loading";
@@ -13,13 +12,10 @@ const Home = () => {
   const { movies, currentPage, totalPages, loading, error } = useSelector(
     (state) => state.movies
   );
-  console.log(movies)
   const [defaultQuery] = useState("popular");
 
   useEffect(() => {
-    dispatch(fetchPaginatedMovies({ query: defaultQuery, page: currentPage })).then((response)=>{
-      console.log(response)
-    });
+    dispatch(fetchPaginatedMovies({ query: defaultQuery, page: currentPage }))
   }, [dispatch, defaultQuery, currentPage]);
 
   const handlePageChange = (newPage) => {

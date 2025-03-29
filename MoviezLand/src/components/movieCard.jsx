@@ -23,7 +23,7 @@ const MovieCard = ({ movie, movieKey }) => {
         </div>
         <div className="row mt-3 p-2">
           <div className="text-start col-10">
-            <h5 className="card-title fw-bold" style={{fontSize:".9rem"}} >{movie.title}</h5>
+            <h5 className="card-title fw-bold" style={{fontSize:"1rem"}} >{movie.title}</h5>
             <p className="card-text">
               {new Date(movie.release_date).toLocaleDateString("en-US", {
                 month: "short",

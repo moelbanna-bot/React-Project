@@ -1,35 +1,35 @@
 .movie-card {
-    overflow: hidden;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    border: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .movie-card img {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    object-fit: cover;
-    height: 375px;
-  }
-  
-  .movie-card .card-body {
-    padding: 15px;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-  }
-  
-  .movie-card .card-title {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  
-  .movie-backdrop {
-    color: white;
-  }
-  .search-component {
-    background-color: #f3f1f2;
-    padding: 20px;
-  }
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.movie-card img {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  object-fit: cover;
+  height: 375px;
+}
+
+.movie-card .card-body {
+  padding: 15px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.movie-card .card-title {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.movie-backdrop {
+  color: white;
+}
+.search-component {
+  background-color: #f3f1f2;
+  padding: 20px;
+}
