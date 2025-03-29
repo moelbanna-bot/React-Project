@@ -4,11 +4,12 @@ import api from "../../services/api";
 // Fetch paginated movies
 export const fetchPaginatedMovies = createAsyncThunk(
   "movies/fetchPaginatedMovies",
-  async ({ query, page }, { rejectWithValue }) => {
+  async ({ query, page }, { rejectWithValue, getState }) => {
+    const language = getState().language.value; // Get current language
     try {
       // Check if the query is 'popular' to fetch popular movies
       if (query === "popular") {
-        const response = await api.get(`/movie/popular?page=${page}`);
+        const response = await api.get(`/movie/popular?page=${page}&language=${language}`);
         return {
           movies: response.data.results,
           totalPages: response.data.total_pages,
@@ -16,7 +17,7 @@ export const fetchPaginatedMovies = createAsyncThunk(
         };
       } else {
         const response = await api.get(
-          `/search/movie?query=${query}&page=${page}`
+          `/search/movie?query=${query}&page=${page}&language=${language}`
         );
         return {
           movies: response.data.results,
@@ -33,9 +34,10 @@ export const fetchPaginatedMovies = createAsyncThunk(
 // Fetch movie details
 export const fetchMovieDetails = createAsyncThunk(
     'movies/fetchMovieDetails',
-    async (id, { rejectWithValue }) => {
+    async (id, { rejectWithValue, getState }) => {
+        const language = getState().language.value; // Get current language
         try {
-            const response = await api.get(`/movie/${id}`);
+            const response = await api.get(`/movie/${id}?language=${language}`);
             return response.data;
         } catch (err) {
             return rejectWithValue('Failed to fetch movie details');
@@ -45,9 +47,10 @@ export const fetchMovieDetails = createAsyncThunk(
 
 export const fetchMovieRecommendations = createAsyncThunk(
     'movies/fetchMovieRecommendations',
-    async(id,{rejectWithValue})=>{
+    async(id,{rejectWithValue, getState})=>{
+        const language = getState().language.value; // Get current language
         try{
-            const response = await api.get(`/movie/${id}/recommendations`);
+            const response = await api.get(`/movie/${id}/recommendations?language=${language}`);
             return response.data.results;
         }catch(err){
             return rejectWithValue('Failed to fetch movie recommendations');
