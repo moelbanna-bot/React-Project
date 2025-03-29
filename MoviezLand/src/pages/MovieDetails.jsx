@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchMovieDetails, fetchMovieRecommendations } from '../store/movies/moviesSlice';
+import { fetchMovieDetails, fetchMovieRecommendations } from '../store/slices/moviesSlice';
 import { useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Container, Row, Col, Card, Spinner, Alert, Badge } from 'react-bootstrap';
-
+import FavHart from '../components/favHart';
 const StarRating = ({ rating }) => {
   const maxStars = 5;
   const normalizedRating = (rating / 10) * maxStars;
@@ -88,7 +88,12 @@ const MovieDetails = () => {
                     
                     <Col md={8} lg={9}>
                         <Card.Body>
-                            <Card.Title as="h1" className="mb-2">{selectedMovie.title}</Card.Title>
+                            <div className="d-flex align-items-center mb-3">
+                                <Card.Title as="h1" className="mb-2">{selectedMovie.title}</Card.Title>
+                                <div className="ms-3" style={{ cursor: 'pointer' }} onClick={(e) => e.chiledren = <FavHart isfav={true} />}>
+                                    <FavHart isfav={false} />
+                                </div>
+                            </div>
                             <Card.Subtitle className="mb-3 text-muted">{formattedDate}</Card.Subtitle>
                             
                             <StarRating rating={selectedMovie.vote_average} />
@@ -97,7 +102,7 @@ const MovieDetails = () => {
                             
                             {/* Genres */}
                             {selectedMovie.genres?.length > 0 && (
-                                <div className="mb-4">
+                                <div className="mb-4 rounded-pill bg-light p-2 d-flex flex-wrap">
                                     {selectedMovie.genres.map(genre => (
                                         <Badge key={genre.id} bg="secondary" className="me-2">
                                             {genre.name}
@@ -108,8 +113,8 @@ const MovieDetails = () => {
                             
                             {/* Additional Info */}
                             <div className="mb-4">
-                                <p className="mb-1"><strong>Duration:</strong> {Math.floor(selectedMovie.runtime / 60)}h {selectedMovie.runtime % 60}m</p>
-                                <p className="mb-1"><strong>Languages:</strong> English</p>
+                                <span className="mb-1 me-3 display "><strong>Duration:</strong> {Math.floor(selectedMovie.runtime / 60)}h {selectedMovie.runtime % 60}m</span>
+                                <span className="mb-1"><strong>Languages:</strong> English</span>
                             </div>
                             
                             <div>
