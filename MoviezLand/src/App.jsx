@@ -12,7 +12,7 @@ import MovieDetails from "./pages/MovieDetails.jsx";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faStar as fasStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons'
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
-import WatchList from "./components/watclist.jsx";
+// import WatchList from "./components/watclist.jsx";
 
 library.add(fasStar, farStar, faStarHalfAlt)
 
@@ -23,7 +23,7 @@ const App = () => (
       <Route path="/" element={<Home />} />
       <Route path="/search" element={<MovieList />} />
       <Route path="/movie/:movieId" element={<MovieDetails />} />
-      <Route path="/watchlist" element={<WatchList />} />
+      {/* <Route path="/watchlist" element={<WatchList />} /> */}
       
       </Routes>
   </Router>
