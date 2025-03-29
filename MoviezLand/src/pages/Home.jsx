@@ -53,7 +53,7 @@ const Home = () => {
         </Suspense>
       </div>
       <h1 className="mb-4">{t("trending")}</h1>
-      <div className="row">
+      <div className="row mx-0">
         {movies.map((movie) => (
           <Suspense
             key={movie.id}

@@ -82,3 +82,26 @@
     margin: 0 !important;
   }
 }
+
+/* Fix for horizontal scrolling */
+body {
+  overflow-x: hidden;
+}
+
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/* Improve responsive handling */
+@media (max-width: 576px) {
+  .row > * {
+    padding-right: calc(var(--bs-gutter-x) * 0.25);
+    padding-left: calc(var(--bs-gutter-x) * 0.25);
+  }
+
+  .card-img-top {
+    height: auto !important;
+    max-height: 300px !important;
+  }
+}
