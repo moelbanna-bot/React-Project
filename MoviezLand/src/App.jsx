@@ -12,6 +12,7 @@ import MovieDetails from "./pages/MovieDetails.jsx";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faStar as fasStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons'
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
+import WatchList from "./pages/watclist.jsx";
 
 library.add(fasStar, farStar, faStarHalfAlt)
 
