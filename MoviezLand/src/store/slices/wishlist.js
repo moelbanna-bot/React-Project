@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    wishlistIds: [], // Store only IDs to match your moviesSlice approach
+    wishlistIds: [11,12,23], // Store only IDs to match your moviesSlice approach
 };
 
 const wishlistSlice = createSlice({
