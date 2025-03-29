@@ -1,22 +1,31 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-regular-svg-icons"; 
-import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { addToWishlist, removeFromWishlist } from "../store/slices/wishlist";
 
-const FavHart = ({ isfav }) => {
-  if (isfav) {
-    return (
-      <div style={{ color: "yellow", fontSize: "40px" }}>
-        <FontAwesomeIcon icon={fasHeart} />
-      </div>
-    );
-  } else {
-    return (
-      <div style={{ color: "black", fontSize: "40px" }}>
-        <FontAwesomeIcon icon={faHeart} />
-      </div>
-    );
-  }
+const WishlistButton = ({ movie }) => {
+  const dispatch = useDispatch();
+  const wishlist = useSelector((state) => state.wishlist.wishlist);
+
+  const isInWishlist = wishlist.some((item) => item.id === movie.id);
+
+  const toggleWishlist = () => {
+    if (isInWishlist) {
+      dispatch(removeFromWishlist(movie));
+    } else {
+      dispatch(addToWishlist(movie));
+    }
+  };
+
+  return (
+    <span
+      onClick={toggleWishlist}
+      style={{ cursor: "pointer", fontSize: "1.5rem", color: isInWishlist ? "#f4d03f" : "gray" }}
+      className="col-2"
+    >
+      {isInWishlist ? <FaHeart /> : <FaRegHeart />}
+    </span>
+  );
 };
 
-export default FavHart;
+export default WishlistButton;

@@ -1,19 +1,20 @@
-import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Home from './pages/home'
-import MovieDetails from './pages/MovieDetails'
+import Home from './pages/Home'
+import MovieDetails from './components/MovieDetails'
+import MovieList from './components/MovieList'
+import Navbar from "./components/Navbar/Navbar";
 
 
 function App() {
   return (
     <>
       <BrowserRouter>
+      <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/movie/:id' element={<MovieDetails />} />
+          <Route path="/search" element={<MovieList />} />
         </Routes>
       </BrowserRouter>
     </>

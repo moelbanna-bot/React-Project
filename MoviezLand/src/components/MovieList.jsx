@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPaginatedMovies, setQuery } from './moviesSlice';
+import { fetchPaginatedMovies, setQuery } from '../store/slices/moviesSlice';
 
 const MovieList = () => {
     const dispatch = useDispatch();
