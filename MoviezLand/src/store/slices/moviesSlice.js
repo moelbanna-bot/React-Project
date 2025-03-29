@@ -4,7 +4,7 @@ import api from "../../services/api";
 export const fetchPaginatedMovies = createAsyncThunk(
   "movies/fetchPaginatedMovies",
   async ({ query, page }, { rejectWithValue, getState }) => {
-    const language = getState().language.value; // Get current language
+    const language = getState().language.value;
     try {
       if (query === "popular") {
         const response = await api.get(
