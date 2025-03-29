@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import WishlistButton from "./favHart";
 
 
-const MovieCard = ({ movie, movieKey }) => {
+const MovieCard = ({ movie }) => {
   return (
     <div className="col-xl-2 col-md-4 col-sm-6 p-2 mb-4" style={{ maxHeight: "500px" }}>
       <div className="card h-100 border-0">

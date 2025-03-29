@@ -1,24 +1,26 @@
 import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Home from './pages/Home'
-import MovieDetails from './components/MovieDetails'
 import MovieList from './components/MovieList'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
+import Home from "./pages/Home";
+import MovieDetails from "./pages/MovieDetails.jsx";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faStar as fasStar, faStarHalfAlt} from "@fortawesome/free-solid-svg-icons";
+import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
+import WatchList from "./pages/watclist.jsx";
 
+library.add(fasStar, farStar, faStarHalfAlt);
 
-function App() {
-  return (
-    <>
-      <BrowserRouter>
-      <Navbar />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/movie/:id' element={<MovieDetails />} />
-          <Route path="/search" element={<MovieList />} />
-        </Routes>
-      </BrowserRouter>
-    </>
-  );
-}
+const App = () => (
+  <Router>
+    <Navbar />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/search" element={<MovieList />} />
+      <Route path="/movie/:movieId" element={<MovieDetails />} />
+      <Route path="/watchlist" element={<WatchList />} />
+    </Routes>
+  </Router>
+);
 
 export default App;

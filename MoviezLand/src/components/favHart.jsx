@@ -5,8 +5,10 @@ import { addToWishlist, removeFromWishlist } from "../store/slices/wishlist";
 
 const WishlistButton = ({ movie}) => {
   const dispatch = useDispatch();
-  const wishlist = useSelector((state) => state.wishlist.wishlist);
-  const isInWishlist = wishlist.some((item) => item.id === movie.id);
+  const wishlist = useSelector((state) => state.wishlist.wishlistIds || []);
+  console.log(wishlist);
+  const isInWishlist =  movie && wishlist.some((item) => item.id === movie.id);
+  console.log(isInWishlist)
 
   const toggleWishlist = () => {
     if (isInWishlist) {
