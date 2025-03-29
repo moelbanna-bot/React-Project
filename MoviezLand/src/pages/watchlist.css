@@ -1,0 +1,85 @@
+.watchlist-container h2 {
+  font-size: 1.5rem;
+}
+
+.watchlist-container .card {
+  height: 100%;
+}
+
+/* Empty list styling */
+.watchlist-container .empty-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.watchlist-container .empty-list-container img {
+  max-width: 120px;
+  margin-bottom: 1rem;
+}
+
+/* Desktop/Tablet styles */
+@media (min-width: 768px) {
+  .watchlist-container .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .watchlist-container .col {
+    margin-bottom: 1.5rem;
+  }
+
+  .watchlist-container .card-img {
+    max-height: 200px !important;
+    object-fit: cover;
+  }
+
+  .watchlist-container .card-title {
+    font-size: 1.2rem !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+
+  .watchlist-container .empty-list-container img {
+    max-width: 150px;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 576px) {
+  .watchlist-container h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem !important;
+  }
+
+  .watchlist-container .card {
+    padding: 0.75rem !important;
+  }
+
+  .watchlist-container .card-title {
+    font-size: 1rem !important;
+    max-width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .watchlist-container .card-text {
+    font-size: 0.8rem !important;
+    margin-bottom: 0.25rem;
+  }
+
+  .watchlist-container .fa-star {
+    font-size: 0.8rem !important;
+  }
+
+  .watchlist-container .ms-2 {
+    font-size: 0.75rem !important;
+  }
+}
