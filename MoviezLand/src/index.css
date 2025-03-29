@@ -54,3 +54,34 @@ body {
 .back-home:hover {
   background-color: #ffe27a !important;
 }
+
+html[dir="rtl"] * {
+  text-align: right;
+}
+
+html[dir="rtl"] .search-component {
+  text-align: right;
+}
+
+html[dir="rtl"] .nav-link.title {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+html[dir="rtl"] .watchlist {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .dropdown-menu {
+  text-align: right;
+}
+
+html[dir="rtl"] .ml-auto {
+  margin-right: auto !important;
+  margin-left: 0 !important;
+}
+
+html[dir="rtl"] .mr-auto {
+  margin-left: auto !important;
+  margin-right: 0 !important;
+}

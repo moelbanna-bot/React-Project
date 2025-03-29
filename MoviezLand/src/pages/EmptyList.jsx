@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "../hooks/useTranslation";
 
 const EmptyList = ({ showHeading = true }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div className="d-flex mt-4 flex-column justify-content-center align-items-center text-center">
@@ -21,7 +23,7 @@ const EmptyList = ({ showHeading = true }) => {
         className="mb-4 text-secondary"
         style={{ transform: "translateY(-60px)", fontSize: "30px" }}
       >
-        No Movies in watch list
+        {t("emptyWatchlist")}
       </h4>
       <button
         className="btn btn-warning back-home"
@@ -34,7 +36,7 @@ const EmptyList = ({ showHeading = true }) => {
         }}
         onClick={() => navigate("/")}
       >
-        Back to home
+        {t("backToHome")}
       </button>
     </div>
   );
