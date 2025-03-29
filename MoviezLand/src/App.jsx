@@ -21,7 +21,6 @@ const App = () => (
     <Navbar />
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/search" element={<MovieList />} />
       <Route path="/movie/:movieId" element={<MovieDetails />} />
       </Routes>
   </Router>
