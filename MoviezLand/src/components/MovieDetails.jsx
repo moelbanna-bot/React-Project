@@ -1,143 +1,166 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { fetchMovieDetails } from "../store/slices/moviesSlice";
-import { Container, Row, Col, Image, Badge } from "react-bootstrap";
-import PersantageCycle from "./persantageCycle";
-import FavHart from "./favHart";
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchMovieDetails, fetchMovieRecommendations } from '../store/movies/moviesSlice';
+import { useParams, Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Container, Row, Col, Card, Spinner, Alert, Badge } from 'react-bootstrap';
 
-const MovieDetails = () => {
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  const { selectedMovie, loading, error } = useSelector(
-    (state) => state.movies
-  );
-
-  useEffect(() => {
-    dispatch(fetchMovieDetails(id));
-  }, [dispatch, id]);
-
-  if (loading) return <div className="text-center my-5">Loading...</div>;
-  if (error) return <div className="text-center my-5 text-danger">{error}</div>;
-  if (!selectedMovie)
-    return <div className="text-center my-5">Movie not found</div>;
-
-  const {
-    title,
-    overview,
-    poster_path,
-    backdrop_path,
-    release_date,
-    vote_average,
-    genres,
-    runtime,
-    tagline,
-    production_companies,
-  } = selectedMovie;
-
-  const backdropUrl = backdrop_path
-    ? `https://image.tmdb.org/t/p/original${backdrop_path}`
-    : null;
-
+const StarRating = ({ rating }) => {
+  const maxStars = 5;
+  const normalizedRating = (rating / 10) * maxStars;
+  
   return (
-    <>
-      {backdropUrl && (
-        <div
-          className="movie-backdrop"
-          style={{
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(${backdropUrl})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            minHeight: "500px",
-            padding: "40px 0",
-          }}
-        >
-          <MovieDetailsContent movie={selectedMovie} />
-        </div>
-      )}
-
-      {!backdropUrl && <MovieDetailsContent movie={selectedMovie} />}
-    </>
+    <div className="d-flex align-items-center mb-3">
+      {[...Array(maxStars)].map((_, i) => {
+        let icon;
+        if (i < Math.floor(normalizedRating)) {
+          icon = <FontAwesomeIcon icon="star" className="text-warning" />;
+        } else if (i < normalizedRating) {
+          icon = <FontAwesomeIcon icon="star-half-alt" className="text-warning" />;
+        } else {
+          icon = <FontAwesomeIcon icon={['far', 'star']} />;
+        }
+        
+        return (
+          <span key={i} className="me-1">
+            {icon}
+          </span>
+        );
+      })}
+      <span className="ms-2 text-muted">({rating.toFixed(1)})</span>
+    </div>
   );
 };
 
-const MovieDetailsContent = ({ movie }) => {
-  const {
-    title,
-    overview,
-    poster_path,
-    release_date,
-    vote_average,
-    genres,
-    runtime,
-    tagline,
-  } = movie;
+const MovieDetails = () => {
+    const { movieId } = useParams();
+    const dispatch = useDispatch();
+    const { selectedMovie, recommendations, loading, error } = useSelector((state) => state.movies);
 
-  return (
-    <Container className="py-5">
-      <Row>
-        <Col md={4} className="position-relative">
-          {poster_path ? (
-            <Image
-              src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-              alt={title}
-              fluid
-              className="rounded shadow"
-            />
-          ) : (
-            <div
-              className="no-image-placeholder bg-secondary d-flex align-items-center justify-content-center rounded"
-              style={{ height: "450px" }}
-            >
-              <span className="text-white">No Image Available</span>
-            </div>
-          )}
-          <div className="position-absolute" style={{ top: 10, right: 10 }}>
-            <FavHart isfav={false} />
-          </div>
-          <div className="position-absolute" style={{ bottom: 10, left: 10 }}>
-            <PersantageCycle percentage={vote_average * 10} />
-          </div>
-        </Col>
-        <Col md={8}>
-          <h1 className="mb-2">{title}</h1>
-          {tagline && <p className="text-muted fs-5 mb-4">"{tagline}"</p>}
+    useEffect(() => {
+        dispatch(fetchMovieDetails(movieId));
+        dispatch(fetchMovieRecommendations(movieId));
+    }, [dispatch, movieId]);
+    
+    const topRecommendations = recommendations?.slice(0, 6) || [];
 
-          <div className="mb-4">
-            {release_date && (
-              <span className="me-3">
-                {new Date(release_date).getFullYear()}
-              </span>
+    if (loading) return (
+        <Container className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+            <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </Spinner>
+        </Container>
+    );
+    
+    if (error) return (
+        <Container className="mt-4">
+            <Alert variant="danger">{error}</Alert>
+        </Container>
+    );
+    
+    const formattedDate = selectedMovie?.release_date ? new Date(selectedMovie.release_date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+    }) : 'Release date not available';
+
+    return (
+        <Container className="py-4">
+            {/* Main Movie Details */}
+            {selectedMovie && (
+                <Row className="mb-5">
+                    <Col md={4} lg={3} className="mb-4 mb-md-0">
+                        <Card className="h-100">
+                            {selectedMovie.poster_path ? (
+                                <Card.Img 
+                                    variant="top"
+                                    src={`https://image.tmdb.org/t/p/w500${selectedMovie.poster_path}`} 
+                                    alt={selectedMovie.title}
+                                    className="img-fluid"
+                                />
+                            ) : (
+                                <Card.Body className="d-flex align-items-center justify-content-center" style={{ minHeight: '450px' }}>
+                                    <Card.Text>No poster available</Card.Text>
+                                </Card.Body>
+                            )}
+                        </Card>
+                    </Col>
+                    
+                    <Col md={8} lg={9}>
+                        <Card.Body>
+                            <Card.Title as="h1" className="mb-2">{selectedMovie.title}</Card.Title>
+                            <Card.Subtitle className="mb-3 text-muted">{formattedDate}</Card.Subtitle>
+                            
+                            <StarRating rating={selectedMovie.vote_average} />
+                            
+                            <Card.Text className="mb-4">{selectedMovie.overview}</Card.Text>
+                            
+                            {/* Genres */}
+                            {selectedMovie.genres?.length > 0 && (
+                                <div className="mb-4">
+                                    {selectedMovie.genres.map(genre => (
+                                        <Badge key={genre.id} bg="secondary" className="me-2">
+                                            {genre.name}
+                                        </Badge>
+                                    ))}
+                                </div>
+                            )}
+                            
+                            {/* Additional Info */}
+                            <div className="mb-4">
+                                <p className="mb-1"><strong>Duration:</strong> {Math.floor(selectedMovie.runtime / 60)}h {selectedMovie.runtime % 60}m</p>
+                                <p className="mb-1"><strong>Languages:</strong> English</p>
+                            </div>
+                            
+                            <div>
+                                <p className="fw-bold mb-1">MARVEL STUDIOS</p>
+                                <Card.Link href="#" className="text-decoration-none">Website 😊</Card.Link>
+                            </div>
+                        </Card.Body>
+                    </Col>
+                </Row>
             )}
-            {runtime && (
-              <span className="me-3">
-                {Math.floor(runtime / 60)}h {runtime % 60}m
-              </span>
+
+            {/* Recommendations Section */}
+            {recommendations?.length > 0 && (
+                <section className="mt-5">
+                    <h2 className="mb-4">Recommendations</h2>
+                    <Row xs={2} md={3} lg={6} className="g-4">
+                        {topRecommendations.map((movie) => (
+                            <Col key={movie.id}>
+                                <Link to={`/movie/${movie.id}`} className="text-decoration-none text-dark">
+                                    <Card className="h-100 border-0 shadow-sm hover-shadow transition">
+                                        {movie.poster_path ? (
+                                            <Card.Img 
+                                                variant="top"
+                                                src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} 
+                                                alt={movie.title}
+                                                className="img-fluid"
+                                            />
+                                        ) : (
+                                            <Card.Body className="d-flex align-items-center justify-content-center" style={{ minHeight: '225px' }}>
+                                                <Card.Text>No poster</Card.Text>
+                                            </Card.Body>
+                                        )}
+                                        <Card.Body>
+                                            <Card.Title as="h3" className="h6 mb-1 text-truncate">{movie.title}</Card.Title>
+                                            <Card.Text className="small text-muted">
+                                                {movie.release_date ? new Date(movie.release_date).toLocaleDateString('en-US', {
+                                                    year: 'numeric',
+                                                    month: 'short',
+                                                    day: 'numeric',
+                                                }) : ''}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Link>
+                            </Col>
+                        ))}
+                    </Row>
+                </section>
             )}
-          </div>
-
-          <div className="mb-4">
-            {genres &&
-              genres.map((genre) => (
-                <Badge key={genre.id} bg="secondary" className="me-2 mb-2">
-                  {genre.name}
-                </Badge>
-              ))}
-          </div>
-
-          <h4>Overview</h4>
-          <p className="lead mb-4">{overview || "No overview available."}</p>
-
-          {release_date && (
-            <p>
-              <strong>Release Date:</strong>{" "}
-              {new Date(release_date).toLocaleDateString()}
-            </p>
-          )}
-        </Col>
-      </Row>
-    </Container>
-  );
+        </Container>
+    );
 };
 
 export default MovieDetails;

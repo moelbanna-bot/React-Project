@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchMovieDetails, fetchMovieRecommendations } from '../store/movies/moviesSlice';
+import { fetchMovieDetails, fetchMovieRecommendations } from '../store/slices/moviesSlice';
 import { useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Container, Row, Col, Card, Spinner, Alert, Badge } from 'react-bootstrap';
