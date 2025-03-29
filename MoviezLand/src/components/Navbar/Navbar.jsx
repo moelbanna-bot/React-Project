@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
+import Watchlist from "../../pages/watclist";
 
 export default function Navbar() {
   return (
@@ -24,7 +25,12 @@ export default function Navbar() {
         </Dropdown>
         <div className="watchlist container d-flex gap-2">
           <FontAwesomeIcon icon={faHeart} className="fa-xl" />
-          <a className="align-self-center nav-link text-small">Watchlist</a>
+          <Link
+            to="/watchlist"
+            className="align-self-center nav-link text-small"
+          >
+            Watchlist
+          </Link>
         </div>
       </div>
     </nav>
