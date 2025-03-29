@@ -4,7 +4,7 @@ import { fetchPaginatedMovies  } from "../store/slices/moviesSlice";
 import Pagination from "../components/Pagination";
 import SearchBar from "../components/SearchBar/SearchBar";
 import { Loading } from "../components/loading";
-import  MovieCard  from "../components/movieCard"
+import  MovieCard  from "../components/main_card"
 import "./Home.css";
 
 const Home = () => {
