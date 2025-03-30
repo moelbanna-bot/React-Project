@@ -24,7 +24,7 @@ export default function SearchBar() {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <InputGroup className="mb-3 gap-4">
+      <InputGroup className="mb-3 gap-4 d-flex  flex-wrap justify-content-center">
         <Form.Control
           placeholder={t("search")}
           aria-label={t("search")}
@@ -32,8 +32,9 @@ export default function SearchBar() {
           id="input-search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          className="w-75"
         />
-        <Button id="button-search" type="submit">
+        <Button id="button-search" type="submit" className="">
           {t("search").split("...")[0]}
         </Button>
       </InputGroup>
